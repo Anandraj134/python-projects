@@ -9,7 +9,8 @@ mydb = mysql.connector.connect(
 
 choice = int(input("1. Insert\n"
                    "2. Update\n"
-                   "3. Delete\n"))
+                   "3. Delete\n"
+                   "4. ViewAll\n"))
 
 mycursor = mydb.cursor()
 if choice == 1:
@@ -32,3 +33,10 @@ elif choice == 3:
     mycursor.execute(query,(st1,))
     mydb.commit()
     print(mycursor.rowcount,"raw deleted")
+elif choice == 4:
+    query = "SELECT name, oth FROM testing"
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    for i in result:
+        name, other = i
+        print(name + "-> "+other)
