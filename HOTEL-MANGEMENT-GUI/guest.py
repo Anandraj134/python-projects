@@ -75,3 +75,34 @@ class GuestInformation:
         self.mydb.commit()
         room_details.room_details(self.mydb, self.r, "").room_deallocation()
         print("Guest Sucessfully Checked Out.")
+
+    def guest_visit_count(self):
+        count = 0
+        mycursor = self.mydb.cursor()
+        query = "SELECT COUNT(mobile) FROM old_guest WHERE mobile=%s"
+        mycursor.execute(query, (self.m, ))
+        temp = mycursor.fetchall()
+        for i in temp:
+            cnt = str(i)[1:-2]
+            count += int(cnt)
+        if count > 0:
+            print("{0} Visits {1} times".format(self.n, count))
+        else:
+            print("{0} is Visit for the First Time".format(self.n))
+
+    def guest_advance_booking(self, date, day):
+        mycursor = self.mydb.cursor()
+        query = "INSERT INTO advance_booking VALUES (%s, %s, %s, %s, %s, %s)"
+        mycursor.execute(query, (self.n, self.a, self.m, day, date, self.r))
+        self.mydb.commit()
+        print("{0}, Your Room is successfully booked for {1}".format(self.n, date))
+
+    def cancle_advance_booking(self, date):
+        mycursor = self.mydb.cursor()
+        query = "INSERT INTO cancle_advance_booking select * from advance_booking where mobile=%s and date=%s"
+        mycursor.execute(query, (self.m, date))
+        query = "DELETE FROM advance_booking where mobile=%s and date=%s"
+        mycursor.execute(query, (self.m, date))
+        self.mydb.commit()
+        print("Your Room is successfully cancelled for {0}".format(date))
+
