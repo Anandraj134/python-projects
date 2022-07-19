@@ -74,7 +74,7 @@ class GuestInformation:
         mycursor.execute(query, (self.r,))
         self.mydb.commit()
         room_details.room_details(self.mydb, self.r, "").room_deallocation()
-        print("Guest Sucessfully Checked Out.")
+        print("Guest Successfully Checked Out.")
 
     def guest_visit_count(self):
         count = 0
@@ -105,4 +105,16 @@ class GuestInformation:
         mycursor.execute(query, (self.m, date))
         self.mydb.commit()
         print("Your Room is successfully cancelled for {0}".format(date))
+
+    def change_room(self):
+        room = input("Enter New Room Number :- ")
+        mycursor = self.mydb.cursor()
+        query = "UPDATE rooms SET allocated = 'No' where rno=%s"
+        mycursor.execute(query, (self.r, ))
+        query = "UPDATE rooms SET allocated = 'Yes' where rno=%s"
+        mycursor.execute(query, (room, ))
+        query = "UPDATE current_guest SET rno = %s WHERE rno = %s"
+        mycursor.execute(query, (room, self.r))
+        self.mydb.commit()
+        print("Room Numer changed successfully.")
 

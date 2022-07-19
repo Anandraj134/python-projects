@@ -2,6 +2,7 @@ import room_details
 import guest
 import validation
 
+
 def admin(mydb):
     print("""
     1. Room Detail
@@ -51,12 +52,19 @@ def admin(mydb):
     elif choice == 6:
         room_details.room_details(mydb, "", "").deallocated_room()
     elif choice == 7:
-        pass
+        new_room = input("Enter old room number :- ")
+        guest.GuestInformation(mydb, "", "", "", new_room).change_room()
     elif choice == 8:
-        pass
+        user = input("Enter Username :- ")
+        new_pass = input("Enter New Password :- ")
+        validation.Validation(mydb, user, new_pass).pass_change()
     elif choice == 9:
-        pass
+        usr = input("Enter Username :- ")
+        psd = input("Enter Password :- ")
+        validation.Validation(mydb, usr, psd).new_emp_signup()
     elif choice == 10:
-        pass
+        usr = input("Enter Username :- ")
+        psd = input("Enter Password :- ")
+        validation.Validation(mydb, usr, psd).new_admin_signup()
     else:
         print("Enter Valid Choice")

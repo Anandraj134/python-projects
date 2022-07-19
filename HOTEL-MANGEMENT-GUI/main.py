@@ -8,8 +8,14 @@ mydb = mysql.connector.connect(
     password='',
 )
 
-usr = input("Enter Username :- ")
-psd = input("Enter Password :- ")
+choice = int(input("Want to Signup? Press 1\nFor Login Press 2"))
 
-validation.Validation(mydb, usr, psd).upval()
+if choice == 1:
+    usr = input("Enter Username :- ")
+    psd = input("Enter Password :- ")
+    validation.Validation(mydb, usr, psd).new_guest_signup()
+else:
+    usr = input("Enter Username :- ")
+    psd = input("Enter Password :- ")
+    validation.Validation(mydb, usr, psd).upval()
 

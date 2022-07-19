@@ -1,14 +1,17 @@
 import room_details
 import guest
+import validation
+
 
 def employee(mydb):
-    print("""
-        1. Room Detail
-        2. Check in
-        3. Check out
-        4. Get Allocated Room list
-        5. Get Unallocated Room List
-        """)
+    print("\n"
+          "        1. Room Detail\n"
+          "        2. Check in\n"
+          "        3. Check out\n"
+          "        4. Get Allocated Room list\n"
+          "        5. Get Unallocated Room List\n"
+          "        6. Change Password\n"
+          "        ")
 
     choice = int(input("Enter Your Choice :- "))
 
@@ -46,6 +49,11 @@ def employee(mydb):
 
     elif choice == 5:
         room_details.room_details(mydb, "", "").deallocated_room()
+
+    elif choice == 6:
+        user = input("Enter Username :- ")
+        new_pass = input("Enter New Password :- ")
+        validation.Validation(mydb, user, new_pass).pass_change()
 
     else:
         print("Enter Valid Choice")
